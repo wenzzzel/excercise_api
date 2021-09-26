@@ -9,7 +9,6 @@ namespace excercise_api
 {
     public class MyDbContext : IdentityDbContext
     {
-        public DbSet<HighScore> HighScore { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Excercice> Excercices { get; set; }
 
