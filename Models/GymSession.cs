@@ -10,6 +10,8 @@ namespace excercise_api
         [Required]
         public string Name { get; set; }
         public string Note { get; set; }
+        [Required]
+        public string UserName { get; set; }
         public List<Set> Sets { get; set; }
         public DateTime PerformedAt { get; set; }
     }
