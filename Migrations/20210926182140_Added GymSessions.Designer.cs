@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using excercise_api;
 
 namespace excercise_api.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210926182140_Added GymSessions")]
+    partial class AddedGymSessions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -237,27 +239,6 @@ namespace excercise_api.Migrations
                     b.ToTable("Excercices");
                 });
 
-            modelBuilder.Entity("excercise_api.GymSession", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("PerformedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("GymSessions");
-                });
-
             modelBuilder.Entity("excercise_api.Models.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
@@ -303,9 +284,6 @@ namespace excercise_api.Migrations
                     b.Property<int?>("ExcerciceId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("GymSessionId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("PerformedAt")
                         .HasColumnType("datetime2");
 
@@ -315,8 +293,6 @@ namespace excercise_api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ExcerciceId");
-
-                    b.HasIndex("GymSessionId");
 
                     b.ToTable("Sets");
                 });
@@ -387,16 +363,7 @@ namespace excercise_api.Migrations
                         .WithMany()
                         .HasForeignKey("ExcerciceId");
 
-                    b.HasOne("excercise_api.GymSession", null)
-                        .WithMany("Sets")
-                        .HasForeignKey("GymSessionId");
-
                     b.Navigation("Excercice");
-                });
-
-            modelBuilder.Entity("excercise_api.GymSession", b =>
-                {
-                    b.Navigation("Sets");
                 });
 #pragma warning restore 612, 618
         }
