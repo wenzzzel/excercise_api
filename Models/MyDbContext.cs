@@ -11,6 +11,7 @@ namespace excercise_api
     {
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Excercice> Excercices { get; set; }
+        public DbSet<Set> Sets { get; set; }
 
         public MyDbContext(DbContextOptions<MyDbContext> options) : base (options)
         {
