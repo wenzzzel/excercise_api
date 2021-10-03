@@ -1,6 +1,8 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
+using excercise_api;
 
 namespace excercise_api .Controllers
 {
@@ -15,10 +17,12 @@ namespace excercise_api .Controllers
         }
 
         [HttpGet]
-        public  IEnumerable<Excercice> Get()
-        {
-            IEnumerable<Excercice> excercises = _myDbContext.Excercices;
-            return excercises;
+        public IEnumerable<Excercice> Get(int id = -1)
+        {   
+            if(id == -1)
+                return _myDbContext.Excercices;
+            else
+                return _myDbContext.Excercices.Where(x => x.Id == id);
         }
     }
 }
