@@ -17,12 +17,12 @@ namespace excercise_api.UnitTests
         {
             //Arrange
             WeatherForecastController myWeatherForecastController = new WeatherForecastController();
-
-            //Act
-            IEnumerable<WeatherForecast> myWeatherForecast = myWeatherForecastController.Get();
             string[] validWeathers = new string[] {
                 "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
             };
+
+            //Act
+            IEnumerable<WeatherForecast> myWeatherForecast = myWeatherForecastController.Get();
 
             //Assert
             Assert.Contains(myWeatherForecast.First().Summary, validWeathers);
