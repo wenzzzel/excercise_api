@@ -17,12 +17,16 @@ namespace excercise_api .Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Excercice> Get(int id = -1)
+        public IEnumerable<Excercice> Get()
         {   
-            if(id == -1)
-                return _myDbContext.Excercices;
-            else
-                return _myDbContext.Excercices.Where(x => x.Id == id);
+            return _myDbContext.Excercices;
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public IEnumerable<Excercice> Get(int id)
+        {
+            return _myDbContext.Excercices.Where(x => x.Id == id);
         }
     }
 }
