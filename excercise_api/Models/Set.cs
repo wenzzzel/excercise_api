@@ -9,6 +9,7 @@ namespace excercise_api
         [Required]
         public Excercice Excercice { get; set; }
         public int Reps { get; set; }
+        public float Weight { get; set; }
         public DateTime PerformedAt { get; set; }
     }
 }
