@@ -33,6 +33,7 @@ namespace excercise_api .Controllers
         }
 
         [HttpPost]
+        //TODO: Add authentication to this endpoint
         public async Task<IActionResult> Post([FromBody] Excercice excercice)
         {
             if(!ModelState.IsValid)
