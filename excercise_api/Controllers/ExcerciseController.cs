@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using excercise_api;
+using System.Threading.Tasks;
+using excercise_api.Models.DTOs.Responses;
+using Microsoft.EntityFrameworkCore;
 
 namespace excercise_api .Controllers
 {
@@ -27,6 +30,38 @@ namespace excercise_api .Controllers
         public IEnumerable<Excercice> Get(int id)
         {
             return _myDbContext.Excercices.Where(x => x.Id == id);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] Excercice excercice)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(new RegistrationResponse(){ //TODO: Create new response-model for this
+                    Errors = new List<string>() {
+                        "Invalid payload"
+                    },
+                    Success = false
+                });
+            }
+
+            var isCreated = await _myDbContext.AddAsync(excercice);
+            await _myDbContext.SaveChangesAsync();
+
+            if(isCreated.IsKeySet)
+            {
+                return Ok(excercice);
+            }
+            else
+            {
+                return BadRequest(new RegistrationResponse(){ //TODO: Create new response-model for this
+                    Errors = new List<string>() {
+                        "Invalid payload"
+                    },
+                    Success = false
+                });
+            }
+
         }
     }
 }
