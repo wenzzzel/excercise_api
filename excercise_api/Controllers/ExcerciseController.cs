@@ -64,5 +64,38 @@ namespace excercise_api .Controllers
             }
 
         }
+
+        [HttpDelete]
+        //TODO: Add authentication to this endpoint
+        [Route("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            Excercice excerciseToRemove = new Excercice() {
+                Id = id
+            };
+
+            try
+            {
+                _myDbContext.Remove(excerciseToRemove);
+                await _myDbContext.SaveChangesAsync();
+            }
+            catch
+            {                
+                return BadRequest(new DeleteRecordResponse(){
+                    Errors = new List<string>() {
+                        "Invalid payload"
+                    },
+                    Success = false
+                });
+            }
+
+            return Ok(new DeleteRecordResponse(){
+                Errors = new List<string>() {
+                    ""
+                },
+                Success = true
+            });
+            
+        }
     }
 }
