@@ -3,7 +3,7 @@ using excercise_api.Controllers;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace excercise_api.UnitTests
+namespace excercise_api.UnitTests.Controllers
 {
     public class WeatherFOrecastControllerTests
     {
