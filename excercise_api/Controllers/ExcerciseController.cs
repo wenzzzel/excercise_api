@@ -70,6 +70,17 @@ namespace excercise_api .Controllers
         [Route("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            //Check that the id provided actually exists in the database
+            if(!_myDbContext.Excercices.Any<Excercice>(e => e.Id == id))
+            {
+                return NotFound(new DeleteRecordResponse(){
+                    Errors = new List<string>(){
+                        "Id does not exist"
+                    },
+                    Success = false
+                });
+            }
+
             Excercice excerciseToRemove = new Excercice() {
                 Id = id
             };
@@ -81,9 +92,9 @@ namespace excercise_api .Controllers
             }
             catch
             {                
-                return BadRequest(new DeleteRecordResponse(){
+                return StatusCode(500, new DeleteRecordResponse(){
                     Errors = new List<string>() {
-                        "Invalid payload"
+                        "Unknown server-side error occured when trying to remove record"
                     },
                     Success = false
                 });
