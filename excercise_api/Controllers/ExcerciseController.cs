@@ -38,7 +38,7 @@ namespace excercise_api .Controllers
         {
             if(!ModelState.IsValid)
             {
-                return BadRequest(new RegistrationResponse(){ //TODO: Create new response-model for this
+                return BadRequest(new GeneralActionResponse(){
                     Errors = new List<string>() {
                         "Invalid payload"
                     },
@@ -55,7 +55,7 @@ namespace excercise_api .Controllers
             }
             else
             {
-                return BadRequest(new RegistrationResponse(){ //TODO: Create new response-model for this
+                return BadRequest(new GeneralActionResponse(){
                     Errors = new List<string>() {
                         "Invalid payload"
                     },
