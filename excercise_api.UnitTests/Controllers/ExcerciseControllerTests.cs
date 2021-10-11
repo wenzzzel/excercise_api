@@ -15,44 +15,50 @@ namespace excercise_api.UnitTests.Controllers
 {
     public class ExcerciseControllerTests
     {
+        private MyDbContext _mockDbContext;
+
         [SetUp]
         public void Setup()
         {
+            //Create in-memory db
+            var options = new DbContextOptionsBuilder<MyDbContext>().UseInMemoryDatabase(databaseName: "mockDatabase").Options;
+            _mockDbContext = new MyDbContext(options);
+            //Add dummy data
+            if(!_mockDbContext.Excercices.Any<Excercice>(e => e.Id == 1 || e.Id == 2 || e.Id == 3))
+            {
+                _mockDbContext.Add(new Excercice(){
+                    Id = 1,
+                    Name = "Excercise_A",
+                    DateCreated = DateTime.UtcNow
+                });
+                _mockDbContext.Add(new Excercice(){
+                    Id = 2,
+                    Name = "Excercise_B",
+                    DateCreated = DateTime.UtcNow
+                });
+                _mockDbContext.Add(new Excercice(){
+                    Id = 3,
+                    Name = "Excercise_C",
+                    DateCreated = DateTime.UtcNow
+                });
+                _mockDbContext.SaveChanges();
+            }
+
         }
 
         [Test]
-        public void Get_WhenCalled_OneRecordOnlyIsReturned()
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        public void Get_WhenCalled_OneRecordOnlyIsReturned(int id)
         {
-            /*
-             * ARRANGE
-             */
-            //Create in-memory db
-            var options = new DbContextOptionsBuilder<MyDbContext>().UseInMemoryDatabase(databaseName: "mockDatabase").Options;
-            var mockDbContext = new MyDbContext(options);
-            //Add dummy data
-            mockDbContext.Add(new Excercice(){
-                Id = 1,
-                Name = "MockupExcercise",
-                DateCreated = DateTime.UtcNow
-            });
-            mockDbContext.Add(new Excercice(){
-                Id = 2,
-                Name = "MockupExcerciseNo2",
-                DateCreated = DateTime.UtcNow
-            });
-            mockDbContext.SaveChanges();
-            //Create ExcerciseController with in-memory db
-            ExcerciseController myExcerciseController = new ExcerciseController(mockDbContext);
+            //Arrange
+            ExcerciseController myExcerciseController = new ExcerciseController(_mockDbContext);
 
-            /*
-             * ACT
-             */
-            var excercises = myExcerciseController.Get(1);
+            //Act
+            var excercises = myExcerciseController.Get(id);
             
-
-            /*
-             * ASSERT
-             */
+            //Assert
             Assert.That(excercises.Count, Is.EqualTo(1));
         }
 
