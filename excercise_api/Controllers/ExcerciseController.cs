@@ -73,7 +73,7 @@ namespace excercise_api .Controllers
             //Check that the id provided actually exists in the database
             if(!_myDbContext.Excercices.Any<Excercice>(e => e.Id == id))
             {
-                return NotFound(new DeleteRecordResponse(){
+                return NotFound(new GeneralActionResponse(){
                     Errors = new List<string>(){
                         "Id does not exist"
                     },
@@ -92,7 +92,7 @@ namespace excercise_api .Controllers
             }
             catch
             {                
-                return StatusCode(500, new DeleteRecordResponse(){
+                return StatusCode(500, new GeneralActionResponse(){
                     Errors = new List<string>() {
                         "Unknown server-side error occured when trying to remove record"
                     },
@@ -100,7 +100,7 @@ namespace excercise_api .Controllers
                 });
             }
 
-            return Ok(new DeleteRecordResponse(){
+            return Ok(new GeneralActionResponse(){
                 Errors = new List<string>() {
                     ""
                 },
