@@ -1,19 +1,8 @@
 using System;
 using NUnit.Framework;
 using excercise_api.Controllers;
-using excercise_api.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using excercise_api.Models.DTOs.Responses;
-using System.Collections.Generic;
 
 namespace excercise_api.UnitTests.Controllers
 {
