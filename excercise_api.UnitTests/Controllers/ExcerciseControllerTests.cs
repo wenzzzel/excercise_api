@@ -64,5 +64,17 @@ namespace excercise_api.UnitTests.Controllers
             Assert.That(excercises.Count, Is.EqualTo(1));
         }
 
+        [Test]
+        public void Get_WhenCalledWithoutParameters_AllRecordsAreReturned()
+        {
+            //Arrange
+            ExcerciseController myExcerciseController = new ExcerciseController(_mockDbContext);
+            var actualExcercisesInMock = _mockDbContext.Excercices;
+            //Act
+            var fetchedExcercisesFromMock = myExcerciseController.Get();
+            //Assert
+            Assert.That(fetchedExcercisesFromMock.Count(), Is.EqualTo(actualExcercisesInMock.Count()));
+        }
+
     }
 }
