@@ -10,6 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using excercise_api.Models.DTOs.Responses;
+using System.Collections.Generic;
 
 namespace excercise_api.UnitTests.Controllers
 {
@@ -50,14 +54,12 @@ namespace excercise_api.UnitTests.Controllers
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(3)]
-        public void Get_WhenCalled_OneRecordOnlyIsReturned(int id)
+        public void Get_WhenCalledWithValidId_OneRecordIsReturned(int id)
         {
             //Arrange
             ExcerciseController myExcerciseController = new ExcerciseController(_mockDbContext);
-
             //Act
             var excercises = myExcerciseController.Get(id);
-            
             //Assert
             Assert.That(excercises.Count, Is.EqualTo(1));
         }
