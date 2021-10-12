@@ -65,6 +65,22 @@ namespace excercise_api.UnitTests.Controllers
             Assert.That(excercises.Count, Is.EqualTo(1));
         }
 
+        [Test]
+        public void Post_WhenCalledWithValidExcerciseObject_ARecordIsCreatedInDb()
+        {
+            //Arrange
+            ExcerciseController myExcerciseController = new ExcerciseController(_mockDbContext);
+            string newUniqueExcerciseName = new Guid().ToString();
+            var newExcercise = new Excercice(){
+                Name = newUniqueExcerciseName,
+                DateCreated = DateTime.UtcNow
+            };
+            //Act
+            myExcerciseController.Post(newExcercise);
+            bool recordWithNewUniqueExcerciseNameExists = _mockDbContext.Excercices.Any<Excercice>(e => e.Name == newUniqueExcerciseName);
+            //Assert
+            Assert.IsTrue(recordWithNewUniqueExcerciseNameExists);
+        }
 
     }
 }
