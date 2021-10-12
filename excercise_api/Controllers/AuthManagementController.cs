@@ -19,7 +19,7 @@ namespace excercise_api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class AuthManagementController : ControllerBase 
+    public class AuthManagementController : ControllerBase  //TODO: Write tests for this class too?
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly JwtConfig _jwtConfig;
